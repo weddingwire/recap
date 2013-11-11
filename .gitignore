@@ -6,3 +6,5 @@ pkg/*
 /test-vm/share/*
 capistrano.log
 doc
+#RubyMine IDE generated files
+.idea

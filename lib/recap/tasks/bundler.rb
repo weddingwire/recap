@@ -39,7 +39,7 @@ module Recap::Tasks::Bundler
       task :default do
         if deployed_file_exists?(bundle_gemfile)
           if deployed_file_exists?(bundle_gemfile_lock)
-            as_app bundle_install_command
+            as_app bundle_install_command, name: 'bundle_install', retry: 3
           else
             abort 'Gemfile found without Gemfile.lock.  The Gemfile.lock should be committed to the project repository'
           end

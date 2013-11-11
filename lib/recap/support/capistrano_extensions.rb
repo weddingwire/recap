@@ -4,9 +4,24 @@ require 'tempfile'
 # as part of a deployment.
 
 module Recap::Support::CapistranoExtensions
-  # Run a command as the application user
-  def as_app(command, pwd = deploy_to)
-    sudo "su - #{application_user} -c 'cd #{pwd} && #{command}'"
+  # Run a command as the application user, by default only once
+  def as_app(command, options = {})
+    pwd         = options[:pwd] || deploy_to
+    retry_count = options[:retry] || 1
+    name        = options[:name]
+    output      = ''
+    retry_count.times do |attempt|
+      attempt += 1
+
+      if attempt > 1
+        puts "\n Retrying (#{attempt}/#{retry_count}): #{name}" if name
+      end
+
+      output = sudo "su - #{application_user} -c 'cd #{pwd} && #{command}'"
+
+      break if $?.success?
+    end
+    output
   end
 
   def as_app_once(command, pwd = deploy_to)
