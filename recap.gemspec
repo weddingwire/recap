@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency('capistrano', '~>2.9')
-  s.add_dependency('thor', '~>0.15.2')
+  s.add_dependency('thor', '~>0.18.1')
   s.add_dependency('open4')
   s.add_development_dependency('rake', '~>0.9.2')
   s.add_development_dependency('fl-rocco', '~>1.0.0')
